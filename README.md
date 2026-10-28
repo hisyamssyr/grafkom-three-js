@@ -2,8 +2,8 @@
 
 ## Identitas
 
-- Nama: _isi nama_
-- NRP: _isi NRP_
+- Nama: Hisyam Syafa Raditya
+- NRP: 5025241130
 - Mata kuliah: EF234504 — Grafika Komputer
 - Pertemuan: 6
 
@@ -17,8 +17,18 @@ Implementasi saat ini mencakup:
 - `PerspectiveCamera`;
 - `WebGLRenderer`;
 - `BoxGeometry`;
-- `MeshBasicMaterial`;
-- satu cube yang ditambahkan ke scene.
+- `MeshLambertMaterial` pada cube;
+- satu cube yang ditambahkan ke scene;
+- `SphereGeometry`;
+- `MeshPhongMaterial` pada sphere;
+- satu sphere yang ditambahkan ke scene;
+- `PlaneGeometry` sebagai ground;
+- `MeshLambertMaterial` pada ground;
+- `AmbientLight`;
+- `DirectionalLight`;
+- shadow map pada renderer;
+- cube dan sphere sebagai shadow caster;
+- ground sebagai shadow receiver.
 
 ## Cara Menjalankan
 
