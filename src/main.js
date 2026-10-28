@@ -41,8 +41,11 @@ const cubeMaterial = new THREE.MeshBasicMaterial({
 });
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
-cube.position.set(0, 0.5, 0);
+// Milestone 4 — Transform
+cube.position.set(-1, 0.5, 0);
+cube.rotation.y = Math.PI / 4;
+cube.scale.set(1.2, 0.8, 1.2);
 scene.add(cube);
 
-// Render satu frame untuk Milestone 2–3.
+// Render satu frame untuk Milestone 2–4.
 renderer.render(scene, camera);
