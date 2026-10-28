@@ -32,7 +32,8 @@ Implementasi saat ini mencakup:
 - animation loop dengan `requestAnimationFrame()`;
 - `THREE.Timer` dan delta time;
 - rotasi cube/sphere dan gerakan naik-turun sphere.
-- responsive rendering saat ukuran viewport berubah.
+- responsive rendering saat ukuran viewport berubah;
+- HUD dengan jumlah object, posisi camera, viewport, FPS, dan status shadow.
 
 ## Cara Menjalankan
 

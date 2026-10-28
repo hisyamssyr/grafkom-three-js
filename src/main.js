@@ -3,6 +3,7 @@ import * as THREE from "three";
 import "./style.css";
 
 const app = document.querySelector("#app");
+const info = document.querySelector("#info");
 
 // Milestone 2 — Scene
 const scene = new THREE.Scene();
@@ -107,6 +108,9 @@ window.addEventListener("resize", () => {
 const timer = new THREE.Timer();
 timer.connect(document);
 let elapsed = 0;
+let fpsElapsed = 0;
+let frameCount = 0;
+let fps = 0;
 
 function animate(timestamp) {
   requestAnimationFrame(animate);
@@ -115,11 +119,27 @@ function animate(timestamp) {
 
   const delta = Math.min(timer.getDelta(), 0.05);
   elapsed += delta;
+  fpsElapsed += delta;
+  frameCount += 1;
+
+  if (fpsElapsed >= 0.5) {
+    fps = Math.round(frameCount / fpsElapsed);
+    fpsElapsed = 0;
+    frameCount = 0;
+  }
 
   cube.rotation.y += 0.8 * delta;
 
   sphere.rotation.y += 0.5 * delta;
   sphere.position.y = 0.75 + Math.sin(elapsed * 2) * 0.15;
+
+  info.textContent =
+    `Meshes: ${scene.children.filter((child) => child.isMesh).length} | ` +
+    `Camera: ${camera.position.x.toFixed(1)}, ` +
+    `${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)} | ` +
+    `Viewport: ${sizes.width} × ${sizes.height} | ` +
+    `FPS: ${fps} | ` +
+    `Shadow: ${renderer.shadowMap.enabled ? "ON" : "OFF"}`;
 
   renderer.render(scene, camera);
 }
