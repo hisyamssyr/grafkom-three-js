@@ -1376,20 +1376,30 @@ Three.js tidak mengubah prinsip dasar ini.
 
 ---
 
-# 53. Menggunakan `THREE.Clock`
+# 53. Menggunakan `THREE.Timer`
+
+Pada Three.js modern, gunakan `THREE.Timer` sebagai pengganti `THREE.Clock` yang sudah deprecated.
 
 Three.js menyediakan:
 
 ```javascript
-const clock =
-  new THREE.Clock();
+const timer =
+  new THREE.Timer();
+
+timer.connect(
+  document
+);
 ```
 
 Pada setiap frame:
 
 ```javascript
+timer.update(
+  timestamp
+);
+
 const delta =
-  clock.getDelta();
+  timer.getDelta();
 ```
 
 `delta` adalah waktu sejak frame sebelumnya dalam detik.
@@ -1399,17 +1409,27 @@ const delta =
 # 54. Animasi Frame-Rate Independent
 
 ```javascript
-const clock =
-  new THREE.Clock();
+const timer =
+  new THREE.Timer();
 
-function animate() {
+timer.connect(
+  document
+);
+
+function animate(
+  timestamp
+) {
   requestAnimationFrame(
     animate
   );
 
+  timer.update(
+    timestamp
+  );
+
   const delta =
     Math.min(
-      clock.getDelta(),
+      timer.getDelta(),
       0.05
     );
 
@@ -1453,7 +1473,7 @@ function animate() {
 
   const delta =
     Math.min(
-      clock.getDelta(),
+      timer.getDelta(),
       0.05
     );
 
@@ -1901,20 +1921,30 @@ window.addEventListener(
 // Animation
 // --------------------
 
-const clock =
-  new THREE.Clock();
+const timer =
+  new THREE.Timer();
+
+timer.connect(
+  document
+);
 
 let elapsed =
   0;
 
-function animate() {
+function animate(
+  timestamp
+) {
   requestAnimationFrame(
     animate
   );
 
+  timer.update(
+    timestamp
+  );
+
   const delta =
     Math.min(
-      clock.getDelta(),
+      timer.getDelta(),
       0.05
     );
 
@@ -2211,7 +2241,7 @@ Gunakan:
 ```text
 requestAnimationFrame()
 +
-THREE.Clock
+THREE.Timer
 +
 delta time
 ```
@@ -2225,7 +2255,7 @@ Target:
 Kriteria selesai:
 
 - [ ] loop menggunakan `requestAnimationFrame()`;
-- [ ] `THREE.Clock` digunakan;
+- [ ] `THREE.Timer` digunakan;
 - [ ] rotasi atau gerakan menggunakan `delta time`;
 - [ ] cube dan sphere bergerak kontinu;
 - [ ] animasi tetap wajar ketika frame rate berubah.

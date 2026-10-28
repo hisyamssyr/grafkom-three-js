@@ -28,7 +28,11 @@ Implementasi saat ini mencakup:
 - `DirectionalLight`;
 - shadow map pada renderer;
 - cube dan sphere sebagai shadow caster;
-- ground sebagai shadow receiver.
+- ground sebagai shadow receiver;
+- animation loop dengan `requestAnimationFrame()`;
+- `THREE.Timer` dan delta time;
+- rotasi cube/sphere dan gerakan naik-turun sphere.
+- responsive rendering saat ukuran viewport berubah.
 
 ## Cara Menjalankan
 

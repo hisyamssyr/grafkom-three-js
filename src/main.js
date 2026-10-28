@@ -91,5 +91,37 @@ directionalLight.shadow.camera.near = 0.5;
 directionalLight.shadow.camera.far = 20;
 scene.add(directionalLight);
 
-// Render satu frame untuk Milestone 2–8.
-renderer.render(scene, camera);
+// Milestone 10 — Responsive Rendering
+window.addEventListener("resize", () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// Milestone 9 — Animation
+const timer = new THREE.Timer();
+timer.connect(document);
+let elapsed = 0;
+
+function animate(timestamp) {
+  requestAnimationFrame(animate);
+
+  timer.update(timestamp);
+
+  const delta = Math.min(timer.getDelta(), 0.05);
+  elapsed += delta;
+
+  cube.rotation.y += 0.8 * delta;
+
+  sphere.rotation.y += 0.5 * delta;
+  sphere.position.y = 0.75 + Math.sin(elapsed * 2) * 0.15;
+
+  renderer.render(scene, camera);
+}
+
+animate();
