@@ -1957,6 +1957,15 @@ animate();
 
 # 61. Milestone 1 — Project Setup
 
+Prasyarat: tidak ada.
+
+Implementasi:
+
+- gunakan project Node.js + Vite;
+- install dependency bawaan dengan `npm install`;
+- install Three.js dengan `npm install three`;
+- pastikan `src/main.js` dapat mengimpor Three.js.
+
 Target:
 
 ```text
@@ -1964,20 +1973,22 @@ Vite berjalan
 +
 Three.js ter-install
 +
-tidak ada error Console
+import berhasil
 ```
 
-Checklist:
+Kriteria selesai:
 
 - [ ] `npm install` berhasil;
 - [ ] `npm install three` berhasil;
 - [ ] `npm run dev` berjalan;
 - [ ] browser membuka project;
-- [ ] `import * as THREE from "three"` berhasil.
+- [ ] tidak ada error module pada Console.
 
 ---
 
 # 62. Milestone 2 — Scene + Camera + Renderer
+
+Prasyarat: Milestone 1 selesai.
 
 Buat:
 
@@ -1993,9 +2004,19 @@ Target:
 
 > browser menampilkan background scene melalui Canvas Three.js.
 
+Kriteria selesai:
+
+- [ ] `Scene` dibuat dan memiliki background;
+- [ ] `PerspectiveCamera` dibuat, diposisikan, dan diarahkan dengan `lookAt()`;
+- [ ] `WebGLRenderer` dibuat dengan antialias;
+- [ ] canvas renderer tampil pada halaman;
+- [ ] background terlihat tanpa object 3D.
+
 ---
 
 # 63. Milestone 3 — Cube
+
+Prasyarat: Milestone 2 selesai.
 
 Tambahkan:
 
@@ -2018,9 +2039,19 @@ MeshBasicMaterial
 → tidak membutuhkan Light
 ```
 
+Kriteria selesai:
+
+- [ ] `BoxGeometry` dibuat;
+- [ ] `MeshBasicMaterial` digunakan;
+- [ ] geometry dan material digabung menjadi `Mesh`;
+- [ ] cube ditambahkan ke scene dan terlihat;
+- [ ] cube tetap terlihat tanpa Light.
+
 ---
 
 # 64. Milestone 4 — Transform
+
+Prasyarat: Milestone 3 selesai.
 
 Ubah:
 
@@ -2047,9 +2078,18 @@ cube.scale.set(
 
 Hubungkan kembali dengan Model Matrix.
 
+Kriteria selesai:
+
+- [ ] `position` cube berubah;
+- [ ] `rotation` cube berubah;
+- [ ] `scale` cube berubah;
+- [ ] mahasiswa dapat menjelaskan bahwa transform tersebut memengaruhi Model Matrix.
+
 ---
 
 # 65. Milestone 5 — Sphere + Lighting Material
+
+Prasyarat: Milestone 4 selesai.
 
 Tambahkan:
 
@@ -2061,11 +2101,21 @@ MeshPhongMaterial
 
 Sebelum Light ditambahkan, amati hasilnya.
 
-Kemudian tambahkan Light.
+Pada tahap ini sphere boleh terlihat gelap karena `MeshPhongMaterial` membutuhkan Light.
+
+Kriteria selesai:
+
+- [ ] `SphereGeometry` dibuat;
+- [ ] `MeshPhongMaterial` digunakan;
+- [ ] sphere dibuat sebagai `Mesh` dan ditambahkan ke scene;
+- [ ] perbedaan perilaku `MeshBasicMaterial` dan `MeshPhongMaterial` dicatat;
+- [ ] Light belum menjadi bagian dari implementasi milestone ini.
 
 ---
 
 # 66. Milestone 6 — Ground
+
+Prasyarat: Milestone 5 selesai.
 
 Tambahkan:
 
@@ -2081,9 +2131,21 @@ Target:
 
 > scene mulai memiliki spatial reference.
 
+Catatan: karena Light baru ditambahkan pada Milestone 7, ground dapat terlihat gelap pada tahap ini. Hal tersebut bukan error.
+
+Kriteria selesai:
+
+- [ ] `PlaneGeometry` dibuat;
+- [ ] plane diputar menjadi bidang horizontal;
+- [ ] `MeshLambertMaterial` digunakan;
+- [ ] ground ditambahkan ke scene;
+- [ ] cube dan sphere berada di atas ground dan tidak menembusnya.
+
 ---
 
 # 67. Milestone 7 — Light
+
+Prasyarat: Milestone 6 selesai.
 
 Tambahkan:
 
@@ -2099,9 +2161,19 @@ Target:
 
 Kemudian ganti cube dari `MeshBasicMaterial` menjadi material yang merespons light.
 
+Kriteria selesai:
+
+- [ ] `AmbientLight` ditambahkan;
+- [ ] `DirectionalLight` ditambahkan dan diposisikan;
+- [ ] sphere dan ground merespons lighting;
+- [ ] material cube diganti menjadi material yang merespons light;
+- [ ] perubahan shading dapat diamati.
+
 ---
 
 # 68. Milestone 8 — Shadow
+
+Prasyarat: Milestone 7 selesai.
 
 Aktifkan:
 
@@ -2119,9 +2191,20 @@ Target:
 
 > shadow cube/sphere terlihat pada ground.
 
+Kriteria selesai:
+
+- [ ] shadow map renderer aktif;
+- [ ] DirectionalLight memiliki `castShadow = true`;
+- [ ] minimal dua object memiliki `castShadow = true`;
+- [ ] ground memiliki `receiveShadow = true`;
+- [ ] volume shadow camera mencakup object dan ground;
+- [ ] shadow terlihat pada ground.
+
 ---
 
 # 69. Milestone 9 — Animation
+
+Prasyarat: Milestone 8 selesai.
 
 Gunakan:
 
@@ -2139,9 +2222,19 @@ Target:
 - sphere bergerak/berputar;
 - animation speed tidak bergantung langsung pada jumlah frame.
 
+Kriteria selesai:
+
+- [ ] loop menggunakan `requestAnimationFrame()`;
+- [ ] `THREE.Clock` digunakan;
+- [ ] rotasi atau gerakan menggunakan `delta time`;
+- [ ] cube dan sphere bergerak kontinu;
+- [ ] animasi tetap wajar ketika frame rate berubah.
+
 ---
 
 # 70. Milestone 10 — Responsive Rendering
+
+Prasyarat: Milestone 9 selesai.
 
 Tambahkan resize handler.
 
@@ -2149,9 +2242,37 @@ Target:
 
 > scene tidak terdistorsi ketika ukuran browser berubah.
 
+Kriteria selesai:
+
+- [ ] ukuran viewport dibaca ulang saat resize;
+- [ ] `camera.aspect` diperbarui;
+- [ ] `camera.updateProjectionMatrix()` dipanggil;
+- [ ] renderer size diperbarui;
+- [ ] pixel ratio tetap dibatasi;
+- [ ] scene tidak terdistorsi setelah browser di-resize.
+
+Setelah Milestone 10 selesai, jalankan seluruh [Test Case](#99-test-case). Semua pengujian inti harus lulus sebelum mengerjakan eksperimen wajib dan challenge.
+
+Pemetaan milestone terhadap test case utama:
+
+| Milestone | Test case yang harus lulus |
+|---|---|
+| 1 | Project berjalan, Console tidak memiliki error module |
+| 2 | Canvas/background tampil, seluruh scene dapat dilihat camera |
+| 3 | Cube tampil, Basic Material tetap terlihat tanpa Light |
+| 4 | Position, rotation, dan scale bekerja |
+| 5 | Sphere tampil, material lighting terpasang |
+| 6 | Ground horizontal tampil |
+| 7 | AmbientLight dan DirectionalLight memengaruhi object |
+| 8 | Shadow jatuh ke ground |
+| 9 | Animation dan delta time bekerja |
+| 10 | Resize tidak menyebabkan distorsi |
+
 ---
 
 # 71. Eksperimen Wajib 1 — WebGL vs Three.js
+
+Eksperimen Wajib 1–11 dikerjakan setelah Milestone 10 dan tidak mengubah kriteria selesai milestone inti. Jika eksperimen memerlukan perubahan kode sementara, kembalikan project ke kondisi baseline sebelum melanjutkan eksperimen berikutnya.
 
 Identifikasi kode Three.js untuk konsep berikut:
 
@@ -2451,6 +2572,8 @@ Jelaskan:
 ---
 
 # 82. Tugas Utama
+
+Tugas utama dikerjakan setelah seluruh milestone, Test Case, dan Eksperimen Wajib selesai. Challenge merupakan pengembangan tambahan; pilih minimal dua challenge setelah implementasi inti tervalidasi.
 
 Bangun:
 
