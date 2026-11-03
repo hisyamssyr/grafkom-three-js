@@ -14,26 +14,67 @@ Project ini merupakan implementasi bertahap mini 3D scene menggunakan Node.js, V
 Implementasi saat ini mencakup:
 
 - `Scene` dan background;
-- `PerspectiveCamera`;
+- `PerspectiveCamera` dan `OrthographicCamera`;
 - `WebGLRenderer`;
-- `BoxGeometry`;
-- `MeshLambertMaterial` pada cube;
-- satu cube yang ditambahkan ke scene;
-- `SphereGeometry`;
-- `MeshPhongMaterial` pada sphere;
-- satu sphere yang ditambahkan ke scene;
-- `PlaneGeometry` sebagai ground;
-- `MeshLambertMaterial` pada ground;
-- `AmbientLight`;
-- `DirectionalLight`;
-- shadow map pada renderer;
-- cube dan sphere sebagai shadow caster;
-- ground sebagai shadow receiver;
+- `BoxGeometry`, `SphereGeometry`, `PlaneGeometry`;
+- `CylinderGeometry`, `ConeGeometry`, dan `TorusGeometry`;
+- material `MeshLambertMaterial` dan `MeshPhongMaterial` pada beberapa object;
+- `AmbientLight` dan `DirectionalLight`;
+- shadow map pada renderer, cube/sphere/cylinder/cone/torus sebagai shadow caster, dan ground sebagai shadow receiver;
 - animation loop dengan `requestAnimationFrame()`;
 - `THREE.Timer` dan delta time;
-- rotasi cube/sphere dan gerakan naik-turun sphere.
-- responsive rendering saat ukuran viewport berubah;
-- HUD dengan jumlah object, posisi camera, viewport, FPS, dan status shadow.
+- rotasi cube/sphere dan gerakan naik-turun sphere;
+- responsive rendering untuk kedua camera;
+- HUD dengan jumlah mesh, mode dan posisi camera, viewport, FPS, status animasi, serta status shadow;
+- kontrol keyboard untuk camera, pause, dan pergerakan cube.
+
+## Challenge yang Dikerjakan
+
+Project ini mengerjakan empat challenge: A, C, G, dan H.
+
+### Challenge A — Tambah Geometry
+
+| Geometry | Material | Transform | Posisi |
+|---|---|---|---|
+| `CylinderGeometry(0.4, 0.4, 1.4, 32)` | `MeshLambertMaterial` warna `0xf59e0b` | default | `(-2.8, 0.7, 1.2)` |
+| `ConeGeometry(0.55, 2, 32)` | `MeshPhongMaterial` warna `0x22c55e`, `shininess: 40` | default | `(-2.4, 1, -2)` |
+| `TorusGeometry(0.6, 0.2, 16, 48)` | `MeshLambertMaterial` warna `0xa855f7` | `rotation.x = π/2` | `(2.6, 0.2, 1.8)` |
+
+Ketiga object memiliki `castShadow = true`, berada di atas ground berukuran 10 × 10, dan tidak saling bertabrakan dengan cube, sphere, maupun object lainnya pada posisi awal.
+
+### Challenge C — OrthographicCamera
+
+- Tombol `P` berpindah antara `PerspectiveCamera` dan `OrthographicCamera` sebagai camera aktif.
+- Orthographic camera memakai tinggi frustum 8 satuan dan lebar minimum 12 satuan. Nilai `left`, `right`, `top`, dan `bottom` dihitung ulang saat window di-resize, lalu `updateProjectionMatrix()` dipanggil.
+- Kedua camera berada pada posisi dan arah `lookAt()` yang sama agar perbedaan proyeksi mudah diamati.
+- HUD menampilkan mode camera yang sedang aktif.
+
+### Challenge G — Toggle Animation
+
+- Tombol `Space` mengubah state boolean `animationEnabled` untuk pause/resume animasi.
+- Saat animasi OFF, rotasi otomatis cube, gerakan sphere, dan kontrol manual cube berhenti.
+- Render loop, penghitungan FPS, pembaruan HUD, dan proses render tetap berjalan.
+- Toggle hanya terjadi sekali per penekanan tombol dengan memanfaatkan `event.repeat`.
+- Status animasi ditampilkan pada HUD (`Anim: ON/OFF`).
+
+### Challenge H — Continuous Object Control
+
+- `ArrowLeft`/`ArrowRight` menggerakkan cube pada sumbu X.
+- `ArrowUp`/`ArrowDown` menggerakkan cube pada sumbu Z.
+- `Q`/`E` memutar cube pada sumbu Y.
+- Pergerakan memakai delta time dengan kecepatan 2.5 satuan/detik dan kecepatan rotasi π rad/detik.
+- Posisi cube dibatasi pada rentang ±4.5 agar tetap berada di atas ground.
+- Kontrol manual aktif selama animasi tidak di-pause. Challenge ini membedakan input event-based (Space dan P) dengan state-based (Arrow dan Q/E).
+
+## Kontrol Keyboard
+
+| Tombol | Aksi |
+|---|---|
+| `P` | Beralih antara perspective dan orthographic camera |
+| `Space` | Pause/resume animasi |
+| `ArrowLeft` / `ArrowRight` | Menggeser cube ke kiri/kanan |
+| `ArrowUp` / `ArrowDown` | Menggeser cube ke depan/belakang |
+| `Q` / `E` | Memutar cube pada sumbu Y |
 
 ## Cara Menjalankan
 
